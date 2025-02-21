@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <!-- Link to CSS -->
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+  <div class="container">
+    <!-- Conversation area -->
+    <div id="conversation"></div>
+  </div>
+
+  <form id="chat-form">
+    <!-- Chat input wrapper -->
+    <div class="chat-input-wrapper">
+      <div class="attachment-container">
+        <!-- Attachment button + dropdown -->
+        <button type="button" id="attachment-btn" class="attachment-btn tooltip" data-tooltip="Attach Files">
+          <i class="fas fa-paperclip"></i>
+        </button>
+        <div id="attachment-dropdown" class="attachment-dropdown">
+          <!-- Attachment icons & file inputs -->
+          <label for="image-input" class="attachment-icon tooltip" data-tooltip="Attach Image">
+            <i class="fas fa-image"></i>
+          </label>
+          <input type="file" id="image-input" class="file-input" accept="image/*" multiple>
+
+          <label for="audio-input" class="attachment-icon tooltip" data-tooltip="Attach Audio">
+            <i class="fas fa-microphone"></i>
+          </label>
+          <input type="file" id="audio-input" class="file-input" accept="audio/*" multiple>
+
+          <label for="video-input" class="attachment-icon disabled tooltip" data-tooltip="Coming soon">
+            <i class="fas fa-video"></i>
+          </label>
+          <input type="file" id="video-input" class="file-input" accept="video/*" multiple>
+        </div>
+      </div>
+      <div class="text-input-area">
+        <div id="previews"></div>
+        <div class="text-input-wrapper">
+          <textarea id="text-input" placeholder="Type your message..." rows="1" required></textarea>
+          <button type="submit" class="send-button tooltip" data-tooltip="Send Message">
+            <i class="fas fa-arrow-up"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- JS includes -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script src="static/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,392 @@
+/* ==========================================================================
+   CSS Variables & Global Settings
+   ========================================================================== */
+:root {
+    --bg-color: #1a1a1a;
+    --primary-color: #f0f0f0;
+    --secondary-bg: #2c2c2c;
+    --dark-gray: #3a3a3a;
+    --hover-dark: #555;
+    --accent-color: #1abc9c;
+    --max-width: 800px;
+    --base-font-size: 16px;
+    --chat-input-padding: 12px 15px;
+    --font-family: 'Roboto', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    font-size: var(--base-font-size);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+     Layout Containers
+     ========================================================================== */
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 10px;
+}
+
+#conversation {
+    background-color: var(--secondary-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 150px;
+    /* space to avoid overlap with fixed chat form */
+}
+
+/* Fixed Chat Form at Bottom */
+#chat-form {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: var(--max-width);
+    background: var(--bg-color);
+    padding: 10px;
+    z-index: 10;
+}
+
+/* ==========================================================================
+     Chat Input Area & Controls
+     ========================================================================== */
+.chat-input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Attachment Controls */
+.attachment-container {
+    position: relative;
+    display: inline-block;
+}
+
+.attachment-btn {
+    background-color: var(--dark-gray);
+    border: none;
+    color: var(--primary-color);
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.attachment-btn:hover {
+    background-color: var(--hover-dark);
+    transform: scale(1.1);
+}
+
+.attachment-dropdown {
+    position: absolute;
+    bottom: 110%;
+    left: 0;
+    background-color: var(--dark-gray);
+    border: 1px solid var(--hover-dark);
+    border-radius: 5px;
+    padding: 5px;
+    white-space: nowrap;
+    z-index: 10;
+    display: none;
+    /* toggled via JS */
+}
+
+.attachment-dropdown .attachment-icon {
+    cursor: pointer;
+    color: var(--primary-color);
+    padding: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.attachment-dropdown .attachment-icon:hover {
+    background-color: var(--hover-dark);
+    transform: scale(1.1);
+}
+
+.file-input {
+    display: none;
+}
+
+/* Text Input Area */
+.text-input-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Previews for Attachments */
+#previews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.preview {
+    position: relative;
+    border: 1px solid var(--hover-dark);
+    border-radius: 5px;
+    overflow: hidden;
+    width: 80px;
+    height: 80px;
+}
+
+.preview img.preview-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview .audio-preview,
+.preview .video-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    color: var(--primary-color);
+}
+
+.preview .remove-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 0, 0, 0.8);
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    line-height: 16px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+/* Text Input Wrapper (Textarea + Send Button) */
+.text-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: var(--dark-gray);
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.text-input-wrapper textarea {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    color: var(--primary-color);
+    font-size: 1rem;
+    outline: none;
+    resize: none;
+    padding: var(--chat-input-padding);
+    line-height: 1.2rem;
+    overflow-y: hidden;
+}
+
+.send-button {
+    border: none;
+    background: none;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: var(--chat-input-padding);
+    transition: color 0.3s;
+}
+
+.send-button:hover {
+    color: var(--accent-color);
+}
+
+/* ==========================================================================
+     Conversation Messages
+     ========================================================================== */
+.message {
+    background-color: var(--dark-gray);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    max-width: 75%;
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+.message.user {
+    margin-left: auto;
+    text-align: right;
+}
+
+.message.ai {
+    margin-right: auto;
+    text-align: left;
+}
+
+.message-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Attachments in Conversation */
+.attachment-box {
+    margin-bottom: 8px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    padding: 5px;
+    border: 1px solid var(--hover-dark);
+    border-radius: 5px;
+    background-color: var(--secondary-bg);
+}
+
+.attachment-item {
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--hover-dark);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.attachment-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.attachment-audio,
+.attachment-video {
+    font-size: 24px;
+    color: var(--primary-color);
+}
+
+/* ==========================================================================
+     AI Typing Spinner & Tooltip
+     ========================================================================== */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--hover-dark);
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tooltip for Disabled Attachment Icons */
+.attachment-icon.disabled {
+    position: relative;
+    cursor: not-allowed;
+}
+
+.attachment-icon.disabled:hover::after {
+    content: "Coming soon";
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    font-size: 12px;
+    z-index: 20;
+    opacity: 0.9;
+}
+
+/* ==========================================================================
+     Responsive Design (Media Queries)
+     ========================================================================== */
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 5px;
+    }
+
+    #conversation {
+        padding: 15px;
+        margin-bottom: 120px;
+    }
+
+    #chat-form {
+        padding: 8px;
+    }
+
+    .text-input-wrapper textarea {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .send-button {
+        padding: 10px 12px;
+        font-size: 1rem;
+    }
+
+    .message {
+        padding: 10px 14px;
+    }
+
+    .attachment-item,
+    .preview {
+        width: 60px;
+        height: 60px;
+    }
+
+    .attachment-dropdown {
+        font-size: 0.9rem;
+    }
+}
+
+.tooltip {
+    position: relative;
+    cursor: pointer;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 100;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+}

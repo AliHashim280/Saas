@@ -1,0 +1,305 @@
+/* Global Styles */
+body {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* Conversation Container */
+#conversation {
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 150px;
+  /* extra margin to avoid overlap with fixed chat form */
+}
+
+/* Chat Form fixed at bottom */
+#chat-form {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px;
+  background: #1a1a1a;
+  padding: 10px;
+  z-index: 10;
+}
+
+/* Chat Input Wrapper as a horizontal row */
+.chat-input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* keep paperclip icon & textarea aligned vertically */
+  gap: 10px;
+}
+
+/* Attachment Container */
+.attachment-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Main attachment button (paperclip icon) */
+.attachment-btn {
+  background-color: #3a3a3a;
+  border: none;
+  color: #f0f0f0;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.attachment-btn:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+/* Dropdown container for attachment options (above the button) */
+.attachment-dropdown {
+  position: absolute;
+  bottom: 110%;
+  left: 0;
+  background-color: #3a3a3a;
+  border: 1px solid #555;
+  border-radius: 5px;
+  display: none;
+  /* toggled via JS */
+  padding: 5px;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+/* Each attachment icon in dropdown */
+.attachment-dropdown .attachment-icon {
+  cursor: pointer;
+  color: #f0f0f0;
+  padding: 8px;
+  transition: background-color 0.3s, transform 0.3s;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.attachment-dropdown .attachment-icon:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+/* Hide the file inputs */
+.file-input {
+  display: none;
+}
+
+/* Text Input Area */
+.text-input-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Previews Container inside input area */
+#previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* Preview element styling */
+.preview {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #555;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 80px;
+  height: 80px;
+}
+
+.preview img.preview-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview .audio-preview,
+.preview .video-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  color: #f0f0f0;
+}
+
+/* Remove button for preview */
+.preview .remove-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(255, 0, 0, 0.8);
+  border: none;
+  color: white;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+/* Text Input Wrapper (for textarea and send button) */
+.text-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #3a3a3a;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+/* Multi-line Textarea (auto-resize logic in JS) */
+.text-input-wrapper textarea {
+  flex: 1;
+  border: none;
+  background-color: transparent;
+  color: #f0f0f0;
+  font-size: 1rem;
+  outline: none;
+  resize: none;
+  /* We'll auto-resize in JS, so we disable manual resizing */
+  padding: 12px 15px;
+  line-height: 1.2rem;
+  /* important for auto-resize calculation */
+  overflow-y: hidden;
+  /* we'll handle scroll if exceeding max lines in JS */
+}
+
+/* Send Button */
+.send-button {
+  border: none;
+  background: none;
+  color: #f0f0f0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 12px 15px;
+  transition: color 0.3s;
+}
+
+.send-button:hover {
+  color: #1abc9c;
+}
+
+/* Conversation Message Styles */
+.message {
+  background-color: #3a3a3a;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  max-width: 75%;
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+
+.message.user {
+  margin-left: auto;
+  text-align: right;
+}
+
+.message.ai {
+  margin-right: auto;
+  text-align: left;
+}
+
+/* Message text wrapping */
+.message-text {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Thumbnails for attachments in conversation (80×80) */
+.attachment-box {
+  margin-bottom: 8px;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  padding: 5px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background-color: #2c2c2c;
+}
+
+.attachment-item {
+  width: 80px;
+  height: 80px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.attachment-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.attachment-audio,
+.attachment-video {
+  font-size: 24px;
+  color: #f0f0f0;
+}
+
+/* AI Typing Spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #555;
+  border-top: 3px solid #f0f0f0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+/* Tooltip styling for disabled attachment icons */
+.attachment-icon.disabled {
+  position: relative;
+  cursor: not-allowed;
+}
+
+.attachment-icon.disabled:hover::after {
+  content: "Coming soon";
+  position: absolute;
+  bottom: 110%;
+  /* adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+  z-index: 20;
+  opacity: 0.9;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
